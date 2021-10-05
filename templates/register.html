@@ -1,0 +1,7 @@
+<form action='' method="POST">
+    {% csrf_token %}
+    {{ form.as_p}}
+    <input type="submit" value="Register Here!">
+</form>
+
+<a href='/login'><button>If you have signed up already, login here</button></a>
