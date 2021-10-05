@@ -1,31 +1,33 @@
 from django.shortcuts import render, HttpResponseRedirect, reverse
 from posts.forms import AddPostForm
-from tweet.models import Tweet
+from posts.models import Post
+from neighborlyUsers.models import NeighborlyUser
+import re
 
 def add_post_view(request):
     if request.user.is_authenticated:
         current_user = request.user
         if request.method == "POST":
-            form = AddTweetForm(request.POST)
-            users = TwitterUser.objects.all()
+            form = AddPostForm(request.POST)
+            users = NeighborlyUser.objects.all()
             if form.is_valid():
                 data = form.cleaned_data
-                tweet = Tweet.objects.create(
+                tweet = Post.objects.create(
                     body=data['body'],
-                    user_tweeted=current_user,
+                    posted_by=current_user,
                 )
-                current_user.tweets += 1
+                current_user.posts += 1
                 current_user.save()
                 for item in users:
                     if re.search("@" + str(item), data['body']):
-                        marked = TwitterUser.objects.get(username=item)
+                        marked = NeighborlyUser.objects.get(username=item)
                         marked.notifications += 1
                         marked.save()
                         Notification.objects.create(
-                            tweet=Tweet.objects.get(body=data['body']),
+                            post=Post.objects.get(body=data['body']),
                             user=marked,
                         )
                 return HttpResponseRedirect(reverse("home"))
-        form = AddTweetForm()
-        return render(request, 'add_tweet.html', {"form": form})
-    return HttpResponseRedirect(request.GET.get('next', reverse("addtweet")))
+        form = AddPostForm()
+        return render(request, 'generic_form.html', {"form": form})
+    return HttpResponseRedirect(request.GET.get('next', reverse("addpost")))
