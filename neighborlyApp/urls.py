@@ -15,9 +15,14 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from neighborlyUsers import views
 from posts.views import add_post_view
 
 urlpatterns = [
+    path('', views.index, name='index'),
     path('admin/', admin.site.urls),
-    path('addpost/', add_post_view, name="addpost")
+    path('register/', views.register, name='signup'),
+    path('login/', views.login_view, name='login'),
+    path('logout/', views.logout_action, name='logout'),
+    path('addpost/', add_post_view, name="addpost"),
 ]
