@@ -2,12 +2,14 @@
 # from posts.forms import AddPostForm
 # from tweet.models import Tweet
 
+#neighborlyusers
+
 # def add_post_view(request):
 #     if request.user.is_authenticated:
 #         current_user = request.user
 #         if request.method == "POST":
 #             form = AddTweetForm(request.POST)
-#             users = TwitterUser.objects.all()
+#             users = NeighborlyUsers.objects.all()
 #             if form.is_valid():
 #                 data = form.cleaned_data
 #                 tweet = Tweet.objects.create(
