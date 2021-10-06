@@ -35,7 +35,7 @@ def add_post_view(request):
     return HttpResponseRedirect(request.GET.get('next', reverse("addpost")))
 
 
-# class EmpImageDisplay(DetailView):
-#     model = Post
-#     template_name = 'index.html'
-#     context_object_name = 'post'
+def Post_View(request, id):
+    html = "posts.html"
+    post = Post.objects.get(id=id)
+    return render(request, html, {'post': post, })

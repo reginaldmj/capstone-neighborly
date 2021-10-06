@@ -15,18 +15,24 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from neighborlyUsers import views
-from posts.views import add_post_view as add_post
 from django.conf import settings
 from django.conf.urls.static import static
 
+from neighborlyUsers import views
+
+from posts.urls import urlpatterns as post_urls
+from neighborlyUsers.urls import urlpatterns as neighborlyUsers_urls
+# from location.urls import urlpatterns as location_urls
+
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', views.homepage_view, name='index'),
-    path('register/', views.register, name='signup'),
-    path('login/', views.login_view, name='login'),
-    path('logout/', views.logout_action, name='logout'),
-    path('addpost/', add_post, name="addpost"),
 ]
+
 if settings.DEBUG:
         urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+urlpatterns+= post_urls
+
+urlpatterns+= neighborlyUsers_urls
+
+# urlpatterns+= location_urls

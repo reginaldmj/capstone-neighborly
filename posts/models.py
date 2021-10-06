@@ -7,6 +7,9 @@ class Post(models.Model):
     image = models.ImageField(upload_to='images/', blank=True)
     time_stamp = models.DateTimeField(default=timezone.now)
     posted_by = models.ForeignKey(NeighborlyUser, on_delete=models.CASCADE, related_name='user_posted')
+    likes = models.IntegerField(default=0)
+    dislikes = models.IntegerField(default=0)
+    
 
     def __str__(self):
         return self.body
