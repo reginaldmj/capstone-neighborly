@@ -42,8 +42,7 @@ INSTALLED_APPS = [
     'neighborlyUsers',
     'posts',
     'location',
-    'rest_framework',
-    'rest_framework',
+    # 'rest_framework',
 ]
 
 MIDDLEWARE = [
