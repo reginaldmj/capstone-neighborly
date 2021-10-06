@@ -8,6 +8,8 @@ authors = ["Tommy Bello <tbello4299@gmail.com>"]
 python = "^3.9"
 Django = "^3.2.7"
 python-decouple = "^3.5"
+djangorestframework = "^3.12.4"
+djangorestframework-gis = "^0.17"
 
 [tool.poetry.dev-dependencies]
 
