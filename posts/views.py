@@ -1,3 +1,4 @@
+from django.views.generic import DetailView
 from django.shortcuts import render, HttpResponseRedirect, reverse
 from posts.forms import AddPostForm
 from posts.models import Post
@@ -8,12 +9,13 @@ def add_post_view(request):
     if request.user.is_authenticated:
         current_user = request.user
         if request.method == "POST":
-            form = AddPostForm(request.POST)
+            form = AddPostForm(request.POST, request.FILES)
             users = NeighborlyUser.objects.all()
             if form.is_valid():
                 data = form.cleaned_data
                 post = Post.objects.create(
                     body=data['body'],
+                    image=data['image'],
                     posted_by=current_user,
                 )
                 current_user.posts += 1
@@ -31,3 +33,9 @@ def add_post_view(request):
         form = AddPostForm()
         return render(request, 'generic_form.html', {"form": form})
     return HttpResponseRedirect(request.GET.get('next', reverse("addpost")))
+
+
+# class EmpImageDisplay(DetailView):
+#     model = Post
+#     template_name = 'index.html'
+#     context_object_name = 'post'
