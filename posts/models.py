@@ -4,6 +4,7 @@ from neighborlyUsers.models import NeighborlyUser
 
 class Post(models.Model):
     body = models.TextField()
+    image = models.ImageField(upload_to='images/', blank=True)
     time_stamp = models.DateTimeField(default=timezone.now)
     posted_by = models.ForeignKey(NeighborlyUser, on_delete=models.CASCADE, related_name='user_posted')
 
