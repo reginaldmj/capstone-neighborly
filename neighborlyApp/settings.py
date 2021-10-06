@@ -41,6 +41,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'neighborlyUsers',
     'posts',
+    'location',
+    'rest_framework',
+    'rest_framework',
 ]
 
 MIDDLEWARE = [
