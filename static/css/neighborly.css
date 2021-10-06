@@ -1,0 +1,39 @@
+.title {
+    padding: 1rem;
+    text-align: center;
+}
+.༼•̫͡•༽ {
+    background: rgb(131, 131, 255);
+    font-family: 'Creepster', cursive;
+    
+    padding: 1rem;
+    text-align: center;
+    font-size: 4rem;
+    margin-bottom: 1rem;
+  }
+
+  .container-sm {
+    text-align: center;
+  }
+
+  .buttons {
+    padding: .1rem;
+    text-align: center;
+    font-size: 2rem;
+  }
+
+  .card {
+    text-align: center;
+  }
+
+  .form {
+    padding: 1rem;
+    text-align: center;
+    font-size: 2rem;
+    margin-bottom: 1rem;
+  }
+
+  h4 {
+    padding: 1rem;
+    text-align: center;
+}

@@ -1,6 +1,10 @@
-<form action='' method="POST">
+{% extends "header.html" %}
+{% block content %}
+<form action="" method="post" class="form">
     {% csrf_token %}
-    {{ form.as_p}}
-    <input type="submit" value="Please Login!">
-</form>
-<a href='/register'><button>Or Register if you haven't already</button></a>
+    {{ form.as_p }}
+    <input type="submit" value="Login" class="btn btn-primary" />
+    </form>
+
+    <h4>Not a Member? Register <a href='/register/'>Here</a></h4>
+    {% endblock %}

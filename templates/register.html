@@ -1,7 +1,10 @@
-<form action='' method="POST">
+{% extends "header.html" %}
+{% block content %}
+<form action="" method="post" class="form">
+    <h2>Please Fill Out This Form To Create a New User.</h2>
+    <br>
     {% csrf_token %}
-    {{ form.as_p}}
-    <input type="submit" value="Register Here!">
-</form>
-
-<a href='/login'><button>If you have signed up already, login here</button></a>
+    {{ form.as_p }}
+    <input type="submit" value="Submit" class="btn btn-primary" />
+    </form>
+    {% endblock %}

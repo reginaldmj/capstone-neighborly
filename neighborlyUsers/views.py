@@ -5,44 +5,59 @@ from django.shortcuts import render, HttpResponseRedirect, redirect
 from django.urls import reverse
 from django.contrib import messages
 from neighborlyUsers.models import NeighborlyUser
+from posts.models import Post
 from django.contrib.auth.decorators import login_required
 
-
-def index(request):
-    form = 'index.html'
-    return render(request, 'index.html')
 
 def register(request):
     form = RegisterForm()
     if request.method == 'POST':
         form = RegisterForm(request.POST)
         if form.is_valid():
-            user = form.save()
-            user.set_password(user.password)
-            user.save()
-            return redirect('/')
-    else:
-        form = RegisterForm()
+            data = form.cleaned_data
+            new_user = NeighborlyUser.objects.create_user(
+                username=data['username'], 
+                password=data['password'], 
+                display_name=data['display_name'],
+                age=data['age'],
+                email=data['email']
+            )
+            return HttpResponseRedirect(reverse("login"))
+    form = RegisterForm()
     return render(request, 'register.html', {'form': form})
 
 def login_view(request):
-    form = LoginForm()
     if request.method == "POST":
         form = LoginForm(request.POST)
         if form.is_valid():
             data = form.cleaned_data
-            user = authenticate(
-                request,
-                username=data['username'],
-                password=data['password']
+            user = authenticate(request, 
+            username=data['username'], 
+            password=data['password']
             )
             if user:
                 login(request, user)
-                return HttpResponseRedirect(request.GET.get('next', reverse('index')))
-    else:
-        form = LoginForm()
-    return render(request, 'login.html', {'form': form}) 
+                return HttpResponseRedirect(request.GET.get('next', reverse("index")))
+    form = LoginForm()
+    return render(request, 'login.html', {"form": form})
+
 
 def logout_action(request):
     logout(request)
-    return HttpResponseRedirect(reverse('index'))
+    return HttpResponseRedirect(reverse('login'))
+
+def homepage_view(request):
+    if request.user.is_authenticated:
+        current_user = request.user
+        users = NeighborlyUser.objects.all()
+        posts = Post.objects.order_by('-time_stamp')
+        # notifications = Notification.objects.filter(user=request.user)
+        # notifs_count = len(notifications)
+        return render(request, 'index.html', {
+            "posts": posts, 
+            # "notifications": notifications, 
+            # "notifs_count": notifs_count,
+            "users": users,
+            "current_user": current_user,
+        })
+    return HttpResponseRedirect(request.GET.get('next', reverse("login")))

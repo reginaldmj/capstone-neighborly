@@ -27,7 +27,7 @@ def add_post_view(request):
                 #             post=Post.objects.get(body=data['body']),
                 #             user=marked,
                 #         )
-                # return HttpResponseRedirect(reverse("home"))
+                return HttpResponseRedirect(reverse("index"))
         form = AddPostForm()
         return render(request, 'generic_form.html', {"form": form})
     return HttpResponseRedirect(request.GET.get('next', reverse("addpost")))

@@ -1,28 +1,20 @@
+{% extends "header.html" %}
+{% block content %}
+
 {% if request.user.is_authenticated %}
 <p>
-  You are currently logged in as
+  Welcome, 
   <a href="/user/{{request.user.id}}/">{{ request.user.display_name }}</a>
 </p>
-
-<p>
-  <a href="/logout">Log Out</a>
-</p>
-
-<p>
-  <a href="/addpost">Add Post</a>
-</p>
-{% else %}
-
-<p>
-  <a href="/login">Log-In</a>
-</p>
-
-<p>
-  <a href="/register">Register</a>
-</p>
-
-<p>
-  <a href="/">Index</a>
-</p>
-
 {% endif %}
+
+{% for post in posts %}
+
+<div class="container-sm">
+    <p><h2 class="title"><a href="/user/{{user.id}}/">@{{post.posted_by}}</a> -- <a href="/post/{{post.id}}/">{{post.time_stamp}}</a></h2></p>
+    <h3>{{post.body}}</h3>
+    <p></p>
+
+{% endfor %}
+
+{% endblock %} 
