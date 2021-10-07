@@ -2,6 +2,7 @@ from django.views.generic import DetailView
 from django.shortcuts import render, HttpResponseRedirect, reverse
 from posts.forms import AddPostForm
 from posts.models import Post
+from notifications.models import Notification
 from neighborlyUsers.models import NeighborlyUser
 import re
 
@@ -20,15 +21,15 @@ def add_post_view(request):
                 )
                 current_user.posts += 1
                 current_user.save()
-                # for item in users:
-                #     if re.search("@" + str(item), data['body']):
-                #         marked = NeighborlyUser.objects.get(username=item)
-                #         marked.notifications += 1
-                #         marked.save()
-                #         Notification.objects.create(
-                #             post=Post.objects.get(body=data['body']),
-                #             user=marked,
-                #         )
+                for item in users:
+                    if re.search("@" + str(item), data['body']):
+                        marked = NeighborlyUser.objects.get(username=item)
+                        marked.notifications += 1
+                        marked.save()
+                        Notification.objects.create(
+                            post=Post.objects.get(body=data['body']),
+                            user=marked,
+                        )
                 return HttpResponseRedirect(reverse("index"))
         form = AddPostForm()
         return render(request, 'generic_form.html', {"form": form})
