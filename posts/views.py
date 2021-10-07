@@ -1,20 +1,30 @@
 from django.views.generic import DetailView
 from django.shortcuts import render, HttpResponseRedirect, reverse
-from posts.forms import AddPostForm
+from posts.forms import PostForm
 from posts.models import Post
 from notifications.models import Notification
 from neighborlyUsers.models import NeighborlyUser
 import re
 
+def post_detail_view(request, id):
+    current_user = request.user
+    posts = Post.objects.all()
+    template_name = "post.html"
+    is_admin = request.user.is_superuser
+    post = Post.objects.get(id=id)
+    context = {"post": post, "current_user": current_user, "is_admin": is_admin, "posts": posts}
+    return render(request, template_name, context)
+
 def add_post_view(request):
     if request.user.is_authenticated:
         current_user = request.user
         if request.method == "POST":
-            form = AddPostForm(request.POST, request.FILES)
+            form = PostForm(request.POST, request.FILES)
             users = NeighborlyUser.objects.all()
             if form.is_valid():
                 data = form.cleaned_data
                 post = Post.objects.create(
+                    title=data['title'],
                     body=data['body'],
                     image=data['image'],
                     posted_by=current_user,
@@ -31,12 +41,26 @@ def add_post_view(request):
                             user=marked,
                         )
                 return HttpResponseRedirect(reverse("index"))
-        form = AddPostForm()
+        form = PostForm()
         return render(request, 'generic_form.html', {"form": form})
     return HttpResponseRedirect(request.GET.get('next', reverse("addpost")))
 
 
-# class EmpImageDisplay(DetailView):
-#     model = Post
-#     template_name = 'index.html'
-#     context_object_name = 'post'
+def edit_post_view(request, id):
+    post = Post.objects.get(id=id)
+    current_user = request.user
+    if request.method == "POST":
+        form = PostForm(request.POST)
+        if form.is_valid():
+            data = form.cleaned_data
+            post.title=data['title']
+            post.body=data['body']
+            post.image=data['image']
+            post.save()
+            return HttpResponseRedirect(reverse('post', args=(id,)))
+    form = PostForm(initial={
+        'title': post.title,
+        'body': post.body,
+        'image': post.image,
+    })
+    return render(request, 'generic_form.html', {"form": form, "current_user": current_user})
