@@ -64,3 +64,8 @@ def edit_post_view(request, id):
         'image': post.image,
     })
     return render(request, 'generic_form.html', {"form": form, "current_user": current_user})
+
+def delete_post_view(request, id):
+    post_to_delete=Post.objects.get(id=id)
+    post_to_delete.delete()
+    return HttpResponseRedirect(reverse("index"))

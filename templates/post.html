@@ -14,7 +14,8 @@
     {% endif %}
 
 {% if current_user == post.posted_by or is_admin %}
-    <button type="button" class="btn btn-dark" onclick="location.href='/post/{{post.id}}/edit/'">Edit Post</button>
+    <button type="button" class="btn btn-primary" onclick="location.href='/post/{{post.id}}/edit/'">Edit Post</button>
+    <button type="button" class="btn btn-danger" onclick="location.href='/post/{{post.id}}/delete/'">Delete Post</button>
 {% endif %}
 
 
