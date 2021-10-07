@@ -30,6 +30,7 @@ urlpatterns = [
     path('addpost/', post_views.add_post_view, name="addpost"),
     path("post/<int:id>/", post_views.post_detail_view, name="post"),
     path('post/<int:id>/edit/', post_views.edit_post_view, name="editpost"),
+    path('post/<int:id>/delete/',post_views.delete_post_view,name='delete'),
     path('notifications/<int:id>/',notif_views.notification_view, name="notifications"),
 ]
 if settings.DEBUG:
