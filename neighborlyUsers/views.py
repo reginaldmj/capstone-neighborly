@@ -6,6 +6,7 @@ from django.urls import reverse
 from django.contrib import messages
 from neighborlyUsers.models import NeighborlyUser
 from posts.models import Post
+from notifications.models import Notification
 from django.contrib.auth.decorators import login_required
 
 
@@ -51,12 +52,12 @@ def homepage_view(request):
         current_user = request.user
         users = NeighborlyUser.objects.all()
         posts = Post.objects.order_by('-time_stamp')
-        # notifications = Notification.objects.filter(user=request.user)
-        # notifs_count = len(notifications)
+        notifications = Notification.objects.filter(user=request.user)
+        notifs_count = len(notifications)
         return render(request, 'index.html', {
             "posts": posts, 
-            # "notifications": notifications, 
-            # "notifs_count": notifs_count,
+            "notifications": notifications, 
+            "notifs_count": notifs_count,
             "users": users,
             "current_user": current_user,
         })
