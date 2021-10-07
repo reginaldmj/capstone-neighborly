@@ -3,10 +3,11 @@ from django.utils import timezone
 from neighborlyUsers.models import NeighborlyUser
 
 class Post(models.Model):
+    title = models.CharField(max_length=50, null=True, blank=True)
     body = models.TextField()
-    image = models.ImageField(upload_to='images/', blank=True)
+    image = models.ImageField(upload_to='images/', blank=True, )
     time_stamp = models.DateTimeField(default=timezone.now)
     posted_by = models.ForeignKey(NeighborlyUser, on_delete=models.CASCADE, related_name='user_posted')
 
     def __str__(self):
-        return self.body
+        return self.title

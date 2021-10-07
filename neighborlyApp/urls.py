@@ -16,7 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from neighborlyUsers import views
-from posts.views import add_post_view as add_post
+from posts import views as post_views
 from django.conf import settings
 from django.conf.urls.static import static
 from notifications import views as notif_views
@@ -27,7 +27,9 @@ urlpatterns = [
     path('register/', views.register, name='signup'),
     path('login/', views.login_view, name='login'),
     path('logout/', views.logout_action, name='logout'),
-    path('addpost/', add_post, name="addpost"),
+    path('addpost/', post_views.add_post_view, name="addpost"),
+    path("post/<int:id>/", post_views.post_detail_view, name="post"),
+    path('post/<int:id>/edit/', post_views.edit_post_view, name="editpost"),
     path('notifications/<int:id>/',notif_views.notification_view, name="notifications"),
 ]
 if settings.DEBUG:
