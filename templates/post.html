@@ -1,0 +1,22 @@
+{% extends "header.html" %}
+{% block content %}
+
+<h1>{{post.posted_by}}'s Post</h1>
+<div class="container-sm">
+    <p><h2 class="title"><a href="/post/{{post.id}}/">{{post.title}}</a> -- <a href="/user/{{user.id}}/">@{{post.posted_by}}</a></h2></p>
+    <h3>{{post.body}}</h3>
+    <h3>{{post.time_stamp}}</h3>
+    {% if post.image %}
+    <img src="{{ post.image.url}}" alt="">
+    <p></p>
+    {% else %}
+    <div></div>
+    {% endif %}
+
+{% if current_user == post.posted_by or is_admin %}
+    <button type="button" class="btn btn-primary" onclick="location.href='/post/{{post.id}}/edit/'">Edit Post</button>
+    <button type="button" class="btn btn-danger" onclick="location.href='/post/{{post.id}}/delete/'">Delete Post</button>
+{% endif %}
+
+
+{% endblock %}

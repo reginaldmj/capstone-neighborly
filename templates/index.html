@@ -11,9 +11,15 @@
 {% for post in posts %}
 
 <div class="container-sm">
-    <p><h2 class="title"><a href="/user/{{user.id}}/">@{{post.posted_by}}</a> -- <a href="/post/{{post.id}}/">{{post.time_stamp}}</a></h2></p>
-    <h3>{{post.body}}</h3>
-    <p></p>
+  <p><h2 class="title"><a href="/post/{{post.id}}/">{{post.title}}</a> -- <a href="/user/{{user.id}}/">@{{post.posted_by}}</a></h2></p>
+  <h3>{{post.body}}</h3>
+  <h3>{{post.time_stamp}}</h3>
+  {% if post.image %}
+  <img src="{{ post.image.url}}" alt="">
+  <p></p>
+  {% else %}
+  <div></div>
+  {% endif %}
 
 {% endfor %}
 

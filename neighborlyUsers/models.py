@@ -11,6 +11,14 @@ class NeighborlyUser(AbstractUser):
     posts = models.IntegerField(default=0, blank=True, null=True)
     location = models.ForeignKey(
         Neighborhood, on_delete=models.CASCADE, blank=True, null=True)
+    notifications = models.IntegerField(default=0)
+    last_checked = models.DateTimeField(
+        auto_now=False,
+        auto_now_add=False,
+        null=True,
+        blank=True
+    )
+
 
     def __str__(self):
         return self.username

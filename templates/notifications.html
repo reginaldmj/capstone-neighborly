@@ -1,0 +1,17 @@
+{% extends "header.html" %}
+{% block content %}
+
+{% for item in notifications %}
+<div class="container-sm">
+    <p><h2 class="title"><a href="/user/{{user.id}}/">@{{item.post.posted_by}}</a> -- <a href="/tweet/{{tweet.id}}/">{{item.post.time_stamp}}</a></h2></p>
+    <h3>{{item.post.body}}</h3>
+    {% if item.post.image %}
+    <img src="{{ item.post.image.url}}" alt="">
+    <p></p>
+    {% else %}
+    <div></div>
+    {% endif %}
+{% endfor %}
+
+
+{% endblock %}
