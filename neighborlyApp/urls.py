@@ -16,6 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from neighborlyUsers import views
+from location.views import location_search
 from posts.views import add_post_view as add_post
 
 urlpatterns = [
@@ -25,4 +26,5 @@ urlpatterns = [
     path('login/', views.login_view, name='login'),
     path('logout/', views.logout_action, name='logout'),
     path('addpost/', add_post, name="addpost"),
+    path("location/", location_search, name="location"),
 ]

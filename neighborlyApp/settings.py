@@ -32,7 +32,6 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
@@ -41,8 +40,8 @@ INSTALLED_APPS = [
     'neighborlyUsers',
     'posts',
     'location',
-    'rest_framework',
-    'rest_framework',
+    'django.contrib.admin',
+
 ]
 
 MIDDLEWARE = [
@@ -134,5 +133,5 @@ STATICFILES_DIRS = [
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 AUTH_USER_MODEL = "neighborlyUsers.NeighborlyUser"
-LOGIN_URL='/login/'
-LOGOUT_URL='/logout/'
+LOGIN_URL = '/login/'
+LOGOUT_URL = '/logout/'
