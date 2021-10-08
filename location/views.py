@@ -18,16 +18,16 @@ URL = "https://wft-geo-db.p.rapidapi.com/v1/geo/adminDivisions"
 API_KEY = '39129568cfmshbfc46421b214e57p111296jsnbcffc8099e56 '
 
 
-def location_view(request):
-    # ip_address = request.META.get('HTTP_X_FORWARDED_FOR', '')
-    response = requests.get(
-        'https://www.google.com/maps/embed/v1/MAP_MODE?key=API_KEY&parameters' % ip_address)
-    geodata = response.json()
-    return render(request, 'core/home.html', {
-        'city': geodata['city'],
-        'state': geodata['state'],
-        'API_KEY': 'AIzaSyC1UpCQp9zHokhNOBK07AvZTiO09icwD8I'  # Google api_key
-    })
+# def location_view(request):
+#     # ip_address = request.META.get('HTTP_X_FORWARDED_FOR', '')
+#     response = requests.get(
+#         'https://www.google.com/maps/embed/v1/MAP_MODE?key=API_KEY&parameters' % ip_address)
+#     geodata = response.json()
+#     return render(request, 'core/home.html', {
+#         'city': geodata['city'],
+#         'state': geodata['state'],
+#         'API_KEY': 'AIzaSyC1UpCQp9zHokhNOBK07AvZTiO09icwD8I'  # Google api_key
+#     })
 
 
 def location_search(request):
