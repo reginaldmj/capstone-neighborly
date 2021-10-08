@@ -5,15 +5,19 @@ from posts.models import Post
 from notifications.models import Notification
 from neighborlyUsers.models import NeighborlyUser
 import re
+from django.views.generic import View
 
-def post_detail_view(request, id):
-    current_user = request.user
-    posts = Post.objects.all()
-    template_name = "post.html"
-    is_admin = request.user.is_superuser
-    post = Post.objects.get(id=id)
-    context = {"post": post, "current_user": current_user, "is_admin": is_admin, "posts": posts}
-    return render(request, template_name, context)
+class Post_Detail_View(View):
+
+    def get(self, request, id):
+        current_user = request.user
+        posts = Post.objects.all()
+        template_name = "post.html"
+        is_admin = request.user.is_superuser
+        post = Post.objects.get(id=id)
+        context = {"post": post, "current_user": current_user, "is_admin": is_admin, "posts": posts}
+        return render(request, template_name, context)
+        
 
 def add_post_view(request):
     if request.user.is_authenticated:
