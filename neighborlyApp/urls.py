@@ -16,10 +16,12 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from neighborlyUsers import views
+from location.views import location_search
 from posts import views as post_views
 from django.conf import settings
 from django.conf.urls.static import static
 from notifications import views as notif_views
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -27,11 +29,13 @@ urlpatterns = [
     path('register/', views.register, name='signup'),
     path('login/', views.login_view, name='login'),
     path('logout/', views.logout_action, name='logout'),
+    path("location/", location_search, name="location"),
     path('addpost/', post_views.add_post_view, name="addpost"),
     path("post/<int:id>/", post_views.Post_Detail_View.as_view(), name="post"),
     path('post/<int:id>/edit/', post_views.edit_post_view, name="editpost"),
     path('post/<int:id>/delete/',post_views.delete_post_view,name='delete'),
     path('notifications/<int:id>/',notif_views.notification_view, name="notifications"),
+
 ]
 if settings.DEBUG:
         urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

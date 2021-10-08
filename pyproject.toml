@@ -9,10 +9,16 @@ python = "^3.9"
 Django = "^3.2.7"
 python-decouple = "^3.5"
 
+requests = "^2.26.0"
+uszipcode = "^0.2.6"
+psycopg2-binary = "^2.9.1"
+
+
 Pillow = "^8.3.2"
 
 djangorestframework = "^3.12.4"
 djangorestframework-gis = "^0.17"
+
 
 
 [tool.poetry.dev-dependencies]
