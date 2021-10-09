@@ -4,6 +4,7 @@ from posts.forms import AddPostForm
 from posts.models import Post
 from neighborlyUsers.models import NeighborlyUser
 import re
+from django.db.models import Count
 
 def add_post_view(request):
     if request.user.is_authenticated:
@@ -38,4 +39,17 @@ def add_post_view(request):
 def Post_View(request, id):
     html = "posts.html"
     post = Post.objects.get(id=id)
-    return render(request, html, {'post': post, })
+    likes = post.likes.count()
+    return render(request, html, {'post': post, 'likes': likes, })
+
+def like(request, post_id):
+    posts = Post.objects.get(id=post_id)
+    posts.likes.add(request.user)
+    posts.save()
+    return HttpResponseRedirect(reverse('index'))
+
+def dislike(request, post_id):
+    posts = Post.objects.get(id=post_id)
+    posts.likes.remove(request.user)
+    posts.save()
+    return HttpResponseRedirect(reverse('index'))

@@ -6,3 +6,20 @@
 <h7>
     {{ post.body }}
 </h7>
+
+    {% comment %} <li><a href='/like/{{post.id}}' class="btn">Like</a>{{post.like}}</li>
+    <li><a href='/dislike/{{post.id}}' class="btn">Dislike</a>{{post.dislike}}</li> {% endcomment %}
+
+{{ likes }}
+
+<form action="{% url 'like' post.id %}" method="POST">
+    {% csrf_token %}
+    <button type="submit name ="like" value={{ post.id }}">Like</button>
+</form>
+
+<form action="{% url 'dislike' post.id %}" method="POST">
+    {% csrf_token %}
+    <button type="submit name ="dislike" value={{ post.id }}">Unlike</button>
+</form>
+
+{% comment %} Get username of person who liked {% endcomment %}
