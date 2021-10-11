@@ -31,8 +31,8 @@ API_KEY = '39129568cfmshbfc46421b214e57p111296jsnbcffc8099e56 '
 
 
 def location_search(request):
-    current_user = request.user
     if request.method == 'POST':
+        current_user = request.user
         form = NeighorhoodForm(request.POST)
         if form.is_valid():
             data = form.cleaned_data
@@ -43,7 +43,9 @@ def location_search(request):
             results = engine.by_zipcode(data['zipcode'])
             new_neighborhood.city = results.major_city
             new_neighborhood.state = results.state
+            new_neighborhood.save()
             current_user.location = new_neighborhood
+            current_user.save()
             return render(request, 'map.html', {'results': results, 'current_user': current_user})
     form = NeighorhoodForm()
     return render(request, 'generic_form.html', {'form': form})
