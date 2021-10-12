@@ -12,10 +12,16 @@
 
 {{ likes }}
 
+
+
 <form action="{% url 'like' post.id %}" method="POST">
     {% csrf_token %}
     <button type="submit name ="like" value={{ post.id }}">Like</button>
 </form>
+
+{% comment %} {% for user in post.likes %}
+    <p> {{ like.user }} </p>
+{% endfor %} {% endcomment %} 
 
 <form action="{% url 'dislike' post.id %}" method="POST">
     {% csrf_token %}
