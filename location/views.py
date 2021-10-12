@@ -43,6 +43,8 @@ def location_search(request):
             results = engine.by_zipcode(data['zipcode'])
             new_neighborhood.city = results.major_city
             new_neighborhood.state = results.state
+            new_neighborhood.lat = results.lat
+            new_neighborhood.lng = results.lng
             current_user.location = new_neighborhood
             return render(request, 'map.html', {'results': results, 'current_user': current_user})
     form = NeighorhoodForm()
