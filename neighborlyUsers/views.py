@@ -17,8 +17,8 @@ def register(request):
         if form.is_valid():
             data = form.cleaned_data
             new_user = NeighborlyUser.objects.create_user(
-                username=data['username'], 
-                password=data['password'], 
+                username=data['username'],
+                password=data['password'],
                 display_name=data['display_name'],
                 age=data['age'],
                 email=data['email']
@@ -27,15 +27,16 @@ def register(request):
     form = RegisterForm()
     return render(request, 'register.html', {'form': form})
 
+
 def login_view(request):
     if request.method == "POST":
         form = LoginForm(request.POST)
         if form.is_valid():
             data = form.cleaned_data
-            user = authenticate(request, 
-            username=data['username'], 
-            password=data['password']
-            )
+            user = authenticate(request,
+                                username=data['username'],
+                                password=data['password']
+                                )
             if user:
                 login(request, user)
                 return HttpResponseRedirect(request.GET.get('next', reverse("index")))
@@ -47,18 +48,23 @@ def logout_action(request):
     logout(request)
     return HttpResponseRedirect(reverse('login'))
 
+
 def homepage_view(request):
     if request.user.is_authenticated:
         current_user = request.user
-        users = NeighborlyUser.objects.all()
-        posts = Post.objects.order_by('-time_stamp')
-        notifications = Notification.objects.filter(user=request.user)
-        notifs_count = len(notifications)
-        return render(request, 'index.html', {
-            "posts": posts, 
-            "notifications": notifications, 
-            "notifs_count": notifs_count,
-            "users": users,
-            "current_user": current_user,
-        })
+        if current_user.location:
+            users = NeighborlyUser.objects.all()
+            posts = Post.objects.filter(
+                city=current_user.location.city).order_by('-time_stamp')
+            notifications = Notification.objects.filter(user=request.user)
+            notifs_count = len(notifications)
+            return render(request, 'index.html', {
+                "posts": posts,
+                "notifications": notifications,
+                "notifs_count": notifs_count,
+                "users": users,
+                "current_user": current_user,
+            })
+        else:
+            return HttpResponseRedirect(reverse('location'))
     return HttpResponseRedirect(request.GET.get('next', reverse("login")))

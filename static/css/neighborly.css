@@ -1,6 +1,9 @@
-.title {
-    padding: 1rem;
-    text-align: center;
+.form {
+  padding: 1rem;
+  padding-top: 50px;
+  text-align: center;
+  font-size: 2rem;
+  margin-bottom: 1rem;
 }
 .༼•̫͡•༽ {
     font-family: 'Bookman', cursive;
@@ -9,6 +12,11 @@
     font-size: 4rem;
     margin-bottom: 1rem;
   }
+
+.title {
+    padding: 1rem;
+    text-align: center;
+}
 
   .container-sm {
     text-align: center;
@@ -24,12 +32,6 @@
     text-align: center;
   }
 
-  .form {
-    padding: 1rem;
-    text-align: center;
-    font-size: 2rem;
-    margin-bottom: 1rem;
-  }
 
   h4 {
     padding: 1rem;
