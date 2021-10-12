@@ -1,3 +1,5 @@
+{% extends "header.html" %}
+{% block content %}
 <h1>Location Finder</h1>
 
 <h2>City:{{results.major_city}}</h2>
@@ -6,3 +8,56 @@
 <h2>Population:{{results.population}}</h2>
 <h2>Timezone:{{results.timezone}}</h2>
 <h2>{{current_user.location.city}}</h2>
+<button type="button" class="btn btn-primary" onclick="location.href='/'">Confirm Location</button>
+<button type="button" class="btn btn-primary" onclick="location.href='/location/'">Go Back</button>
+
+<head>
+    <meta charset="UTF-8>
+    <meta name=" viewport" content="width=device-with,
+    initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edige">
+    <title>My Neighborly Map</title>
+    <style>
+        #map {
+            height: 300px;
+            width: 500;
+        }
+
+    </style>
+</head>
+
+<body>
+    <h1>My Neighborly Map</h1>
+    <div id="map"></div>
+    <script>
+        function initMap() {
+            var options = {
+                zoom: 8,
+                center: { lat: 37.0902, lng: -95.7129 }
+            }
+
+            var map = new google.maps.Map(document.getElementById('map'), options);
+            // Listen for click on map
+            google.maps.event.addlistener(map, 'click',
+                function (event) {
+                    addMarker({ coords: event.latLng });
+                })
+
+        }
+        addMarker({ coords: { lat: 36.2695, lng: -95.8547 } });
+
+        function addMarker(props) {
+            var marker = new google.maps.Marker({
+                position: coords,
+                map: map,
+            });
+        }
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAhyQaJ-eK3uJPPwY47H_S9NUvFPzO_pEU&callback=initMap">
+
+    </script>
+
+
+
+</body>
+{% endblock %}
