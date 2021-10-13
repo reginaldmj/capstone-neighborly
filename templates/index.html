@@ -6,8 +6,9 @@
   Welcome, 
   <a href="/user/{{request.user.id}}/">{{ request.user.display_name }}</a>
 </p>
-{% endif %}
+{% endif %} 
 
+<div class="homepage">
 <h1>Recent Posts for Your Area - {{current_user.location.city}}, {{current_user.location.state}}</h1>
 
 {% for post in posts %}
@@ -25,4 +26,4 @@
 
 {% endfor %}
 
-{% endblock %} 
+{% endblock %}

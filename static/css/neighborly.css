@@ -1,3 +1,15 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  text-align: center;
+}
+
+.card {
+  text-align: center;
+}
+
 .form {
   padding: 1rem;
   padding-top: 50px;
@@ -5,35 +17,31 @@
   font-size: 2rem;
   margin-bottom: 1rem;
 }
+  
 .༼•̫͡•༽ {
     font-family: 'Bookman', cursive;
     padding: 1rem;
     text-align: center;
     font-size: 4rem;
     margin-bottom: 1rem;
-  }
+}
 
 .title {
     padding: 1rem;
     text-align: center;
 }
 
-  .container-sm {
+.container-sm {
     text-align: center;
-  }
+}
 
-  .buttons {
+.buttons {
     padding: .1rem;
     text-align: center;
     font-size: 2rem;
-  }
+}
 
-  .card {
-    text-align: center;
-  }
-
-
-  h4 {
+h4 {
     padding: 1rem;
     text-align: center;
 }
