@@ -7,6 +7,7 @@ from neighborlyUsers.models import NeighborlyUser
 import re
 from django.views.generic import View
 
+
 class Post_Detail_View(View):
 
     def get(self, request, id):
@@ -15,9 +16,10 @@ class Post_Detail_View(View):
         template_name = "post.html"
         is_admin = request.user.is_superuser
         post = Post.objects.get(id=id)
-        context = {"post": post, "current_user": current_user, "is_admin": is_admin, "posts": posts}
+        context = {"post": post, "current_user": current_user,
+                   "is_admin": is_admin, "posts": posts}
         return render(request, template_name, context)
-        
+
 
 def add_post_view(request):
     if request.user.is_authenticated:
@@ -57,9 +59,9 @@ def edit_post_view(request, id):
         form = PostForm(request.POST)
         if form.is_valid():
             data = form.cleaned_data
-            post.title=data['title']
-            post.body=data['body']
-            post.image=data['image']
+            post.title = data['title']
+            post.body = data['body']
+            post.image = data['image']
             post.save()
             return HttpResponseRedirect(reverse('post', args=(id,)))
     form = PostForm(initial={
@@ -69,7 +71,8 @@ def edit_post_view(request, id):
     })
     return render(request, 'generic_form.html', {"form": form, "current_user": current_user})
 
+
 def delete_post_view(request, id):
-    post_to_delete=Post.objects.get(id=id)
+    post_to_delete = Post.objects.get(id=id)
     post_to_delete.delete()
     return HttpResponseRedirect(reverse("index"))

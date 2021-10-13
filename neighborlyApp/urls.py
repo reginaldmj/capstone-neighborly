@@ -13,6 +13,7 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+from django.conf.urls import handler404
 from django.contrib import admin
 from django.urls import path
 from neighborlyUsers import views
@@ -33,9 +34,15 @@ urlpatterns = [
     path('addpost/', post_views.add_post_view, name="addpost"),
     path("post/<int:id>/", post_views.Post_Detail_View.as_view(), name="post"),
     path('post/<int:id>/edit/', post_views.edit_post_view, name="editpost"),
-    path('post/<int:id>/delete/',post_views.delete_post_view,name='delete'),
-    path('notifications/<int:id>/',notif_views.notification_view, name="notifications"),
+    path('post/<int:id>/delete/', post_views.delete_post_view, name='delete'),
+    path('notifications/<int:id>/',
+         notif_views.notification_view, name="notifications"),
 
 ]
+
+handler404 = 'neighborlyUsers.views.error_404_view'
+handler500 = 'neighborlyUsers.views.error_500'
+
 if settings.DEBUG:
-        urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    urlpatterns += static(settings.MEDIA_URL,
+                          document_root=settings.MEDIA_ROOT)
