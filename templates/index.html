@@ -4,7 +4,7 @@
 {% if request.user.is_authenticated %}
 <p>
   Welcome, 
-  <a href="/user/{{request.user.id}}/">{{ request.user.display_name }}</a>
+  <a href="/profile/{{request.user.id}}/">{{ request.user.display_name }}</a>
 </p>
 {% endif %}
 

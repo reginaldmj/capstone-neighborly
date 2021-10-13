@@ -72,5 +72,5 @@ def homepage_view(request):
 def Profile(request, id):
     html = 'profile.html'
     user = NeighborlyUser.objects.get(id=id)
-    posts = Post.objects.filter(author=user).order_by('-date')
+    posts = Post.objects.filter(posted_by=user).order_by('-time_stamp')
     return render(request, html, {'user': user, 'posts': posts})

@@ -1,8 +1,15 @@
 {% if request.user.is_authenticated %}
 <p>
     You are currently logged in as
-    <a href='/user/{{request.user.id}}/'>{{ request.user.display_name }}</a>
+    <a href='/profile/{{request.user.id}}/'>{{ request.user.display_name }}</a>
 </p>
+
+Posts: {{ user.post_set.count }}</p>
+
+<p>
+<a href='/notifications'>Your Notifications</a>
+</p>
+
 
 <p>
     <a href='/logout'>Log Out</a>
@@ -12,5 +19,6 @@
 </p>
 
 <p>
-<a href='/addtweet'>Add a Tweet</a>
+<a href='/addpost'>Add a Post</a>
 </p>
+{% endif %}
