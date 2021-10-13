@@ -68,3 +68,9 @@ def homepage_view(request):
         else:
             return HttpResponseRedirect(reverse('location'))
     return HttpResponseRedirect(request.GET.get('next', reverse("login")))
+
+def Profile(request, id):
+    html = 'profile.html'
+    user = NeighborlyUser.objects.get(id=id)
+    posts = Post.objects.filter(author=user).order_by('-date')
+    return render(request, html, {'user': user, 'posts': posts})

@@ -1,0 +1,16 @@
+{% if request.user.is_authenticated %}
+<p>
+    You are currently logged in as
+    <a href='/user/{{request.user.id}}/'>{{ request.user.display_name }}</a>
+</p>
+
+<p>
+    <a href='/logout'>Log Out</a>
+</p>
+<p>
+    <a href='/'>Index</a>
+</p>
+
+<p>
+<a href='/addtweet'>Add a Tweet</a>
+</p>
