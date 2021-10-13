@@ -34,6 +34,7 @@ def add_post_view(request):
                     body=data['body'],
                     image=data['image'],
                     posted_by=current_user,
+                    city=current_user.location.city
                 )
                 current_user.posts += 1
                 current_user.save()
