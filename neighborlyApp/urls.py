@@ -21,6 +21,8 @@ from posts import views as post_views
 from django.conf import settings
 from django.conf.urls.static import static
 from notifications import views as notif_views
+from comments import views as com_views
+
 
 
 urlpatterns = [
@@ -35,6 +37,7 @@ urlpatterns = [
     path('post/<int:id>/edit/', post_views.edit_post_view, name="editpost"),
     path('post/<int:id>/delete/',post_views.delete_post_view,name='delete'),
     path('notifications/<int:id>/',notif_views.notification_view, name="notifications"),
+    path('comment/<int:id>/',com_views.com_detailview, name='comments'),
 
 ]
 if settings.DEBUG:

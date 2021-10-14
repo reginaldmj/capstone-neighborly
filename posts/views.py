@@ -73,3 +73,4 @@ def delete_post_view(request, id):
     post_to_delete=Post.objects.get(id=id)
     post_to_delete.delete()
     return HttpResponseRedirect(reverse("index"))
+    

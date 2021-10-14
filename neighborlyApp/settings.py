@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'location',
     'django.contrib.admin',
     'notifications',
+    'comments',
 ]
 
 MIDDLEWARE = [
