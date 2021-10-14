@@ -1,8 +1,41 @@
-<h1>Location Finder</h1>
+{% extends "header.html" %}
+{% block content %}
 
-<h2>City:{{results.major_city}}</h2>
-<h2>State:{{results.state}}</h2>
-<h2>Zipcode:{{results.zipcode}}</h2>
-<h2>Population:{{results.population}}</h2>
-<h2>Timezone:{{results.timezone}}</h2>
-<h2>{{current_user.location.city}}</h2>
+<div class="card" style=" margin-left:33%;width: 500;">
+    <div class="card-body">
+        <h5 class="card-title">Confirm Your Location</h5>
+        <p class="card-text">City: {{results.major_city}}</p>
+        <p class="card-text">State: {{results.state}}</p>
+        <p class="card-text">Zipcode: {{results.zipcode}}</p>
+        <p class="card-text">Population: {{results.population}}</p>
+        <p class="card-text">Timezone: {{results.timezone}}</p>
+        <button type="button" class="btn btn-primary" onclick="location.href='/'">Confirm </button>
+        <button type="button" class="btn btn-primary" onclick="location.href='/location/'">Go Back</button>
+    </div>
+    <div style="height: 300px; width: 500" id="map"></div>
+    <script>
+
+        function initMap() {
+            var options = {
+                zoom: 11,
+                center: { lat: JSON.parse("{{results.lat}}"), lng: JSON.parse("{{results.lng}}") }
+            }
+
+            var map = new google.maps.Map(document.getElementById('map'), options);
+
+
+        }
+
+
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAhyQaJ-eK3uJPPwY47H_S9NUvFPzO_pEU&callback=initMap">
+
+    </script>
+</div>
+
+
+
+
+
+
+{% endblock %}

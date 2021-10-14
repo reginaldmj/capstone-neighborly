@@ -1,0 +1,11 @@
+{% extends 'header.html' %}
+{% block title %}500 Error Page{% endblock %}
+{% block content %}
+<div class="jumbotron">
+    <h1 class="display-4">Internal Server Error(500)</h1>
+    <p class="lead">Sorry, there's been and error. An email was sent to your administrators. Thank you for your
+        patience.</p>
+    <hr class="my-4">
+    <a class="btn btn-primary btn-lg" href="{% url 'index' %}" role="button">Go To Our Home Page</a>
+</div>
+{% endblock %}
