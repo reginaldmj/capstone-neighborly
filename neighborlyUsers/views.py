@@ -72,3 +72,9 @@ def homepage_view(request):
             "current_user": current_user,
         })
     return HttpResponseRedirect(request.GET.get('next', reverse("login")))
+
+def Profile(request, id):
+    html = 'profile.html'
+    user = NeighborlyUser.objects.get(id=id)
+    posts = Post.objects.filter(posted_by=user).order_by('-time_stamp')
+    return render(request, html, {'user': user, 'posts': posts})
