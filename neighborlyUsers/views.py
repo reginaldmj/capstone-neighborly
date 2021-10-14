@@ -10,6 +10,14 @@ from notifications.models import Notification
 from django.contrib.auth.decorators import login_required
 
 
+def error_404_view(request, exception):
+    return render(request, '404.html')
+
+
+def error_500(request):
+    return render(request, '500.html')
+
+
 def register(request):
     form = RegisterForm()
     if request.method == 'POST':
@@ -52,21 +60,17 @@ def logout_action(request):
 def homepage_view(request):
     if request.user.is_authenticated:
         current_user = request.user
-        if current_user.location:
-            users = NeighborlyUser.objects.all()
-            posts = Post.objects.filter(
-                city=current_user.location.city).order_by('-time_stamp')
-            notifications = Notification.objects.filter(user=request.user)
-            notifs_count = len(notifications)
-            return render(request, 'index.html', {
-                "posts": posts,
-                "notifications": notifications,
-                "notifs_count": notifs_count,
-                "users": users,
-                "current_user": current_user,
-            })
-        else:
-            return HttpResponseRedirect(reverse('location'))
+        users = NeighborlyUser.objects.all()
+        posts = Post.objects.order_by('-time_stamp')
+        notifications = Notification.objects.filter(user=request.user)
+        notifs_count = len(notifications)
+        return render(request, 'index.html', {
+            "posts": posts,
+            "notifications": notifications,
+            "notifs_count": notifs_count,
+            "users": users,
+            "current_user": current_user,
+        })
     return HttpResponseRedirect(request.GET.get('next', reverse("login")))
 
 def Profile(request, id):
