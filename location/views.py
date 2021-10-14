@@ -49,6 +49,7 @@ def location_search(request):
 
             current_user.location = new_neighborhood
             current_user.save()
-            return render(request, 'map.html', {'results': results, 'current_user': current_user})
+            lat = results.lat
+            return render(request, 'map.html', {'results': results, 'current_user': current_user, 'lat': lat})
     form = NeighorhoodForm()
     return render(request, 'generic_form.html', {'form': form})
