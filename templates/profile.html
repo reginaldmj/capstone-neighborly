@@ -4,14 +4,15 @@
 {% if request.user.is_authenticated %}
 <h4>{{ current_user.username}}'s Profile</h4>
 
-{% if profile_pic %}
-<img src="{{ profile_pic.url}}" alt="">
+{% if current_user.profile_pic %}
+<img src="{{ current_user.profile_pic.url}}" alt="">
 {% else %}
 <div></div>
 {% endif %}
 
-{% if current_user.id == user %}
-<button type="button" class="btn btn-primary" onclick="location.href='/location/'">Update Location</button>
+{% if current_user == user %}
+<button type="button" class="btn btn-primary" onclick="location.href='/location/'">Change Location</button>
+<button type="button" class="btn btn-primary" onclick="location.href='/profile/{{user.id}}/update/'">Update Profile</button>
 {% endif %}
 
 Posts: {{ total_posts }}</p>

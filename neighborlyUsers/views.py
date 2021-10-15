@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from neighborlyUsers.forms import RegisterForm, LoginForm
+from neighborlyUsers.forms import NeighborlyUserChangeForm, RegisterForm, LoginForm
 from django.contrib.auth import login, authenticate, logout
 from django.shortcuts import render, HttpResponseRedirect, redirect
 from django.urls import reverse
@@ -33,7 +33,7 @@ class Register(View):
                 password=data['password'],
                 display_name=data['display_name'],
                 age=data['age'],
-                email=data['email']
+                email=data['email'],
             )
             return HttpResponseRedirect(reverse("login"))
 
@@ -89,3 +89,24 @@ def user_profile_view(request, id):
     total_posts = current_user.posts
     profile_pic = current_user.profile_pic
     return render(request, html, {'posts': posts, 'total_posts': total_posts, 'profile_pic': profile_pic, "current_user": current_user})
+
+
+def edit_user_view(request, id):
+    current_user = NeighborlyUser.objects.get(id=id)
+    if request.method == "POST":
+        form = NeighborlyUserChangeForm(request.POST)
+        if form.is_valid():
+            data = form.cleaned_data
+            current_user.display_name = data['display_name']
+            current_user.email = data['email']
+            current_user.age = data['age']
+            # current_user.profile_pic = data['profile_pic']
+            current_user.save()
+            return HttpResponseRedirect(reverse('profile', args=(id,)))
+    form = NeighborlyUserChangeForm(initial={
+        'display_name': current_user.display_name,
+        'email': current_user.email,
+        'age': current_user.age,
+        # 'profile_pic': current_user.profile_pic
+    })
+    return render(request, 'generic_form.html', {"form": form, "current_user": current_user})

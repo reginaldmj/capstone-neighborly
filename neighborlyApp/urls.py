@@ -44,6 +44,7 @@ urlpatterns = [
     path('notifications/<int:id>/',
          notif_views.notification_view, name="notifications"),
     path('profile/<int:id>/', views.user_profile_view, name="profile"),
+    path('profile/<int:id>/update/', views.edit_user_view, name="edituser"),
 ]
 
 handler404 = 'neighborlyUsers.views.error_404_view'
