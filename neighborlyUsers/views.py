@@ -66,7 +66,8 @@ def homepage_view(request):
         current_user = request.user
         if current_user.location:
             users = NeighborlyUser.objects.all()
-            posts = Post.objects.order_by('-time_stamp')
+            posts = Post.objects.filter(
+                city=current_user.location.city).order_by('-time_stamp')
             notifications = Notification.objects.filter(user=request.user)
             notifs_count = len(notifications)
             return render(request, 'index.html', {
@@ -81,8 +82,10 @@ def homepage_view(request):
     return HttpResponseRedirect(request.GET.get('next', reverse("login")))
 
 
-def Profile(request, id):
+def user_profile_view(request, id):
     html = 'profile.html'
-    user = NeighborlyUser.objects.get(id=id)
-    posts = Post.objects.filter(posted_by=user).order_by('-time_stamp')
-    return render(request, html, {'user': user, 'posts': posts})
+    current_user = NeighborlyUser.objects.get(id=id)
+    posts = Post.objects.filter(posted_by=current_user).order_by('-time_stamp')
+    total_posts = current_user.posts
+    profile_pic = current_user.profile_pic
+    return render(request, html, {'posts': posts, 'total_posts': total_posts, 'profile_pic': profile_pic, "current_user": current_user})

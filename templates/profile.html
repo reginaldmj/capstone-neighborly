@@ -1,24 +1,44 @@
+{% extends "header.html" %}
+{% block content %}
+
 {% if request.user.is_authenticated %}
-<p>
-    You are currently logged in as
-    <a href='/profile/{{request.user.id}}/'>{{ request.user.display_name }}</a>
-</p>
+<h4>{{ current_user.username}}'s Profile</h4>
 
-Posts: {{ user.post_set.count }}</p>
-
-<p>
-<a href='/notifications'>Your Notifications</a>
-</p>
-
-
-<p>
-    <a href='/logout'>Log Out</a>
-</p>
-<p>
-    <a href='/'>Index</a>
-</p>
-
-<p>
-<a href='/addpost'>Add a Post</a>
-</p>
+{% if profile_pic %}
+<img src="{{ profile_pic.url}}" alt="">
+{% else %}
+<div></div>
 {% endif %}
+
+{% if current_user.id == user %}
+<button type="button" class="btn btn-primary" onclick="location.href='/location/'">Update Location</button>
+{% endif %}
+
+Posts: {{ total_posts }}</p>
+
+{% for post in posts %}
+
+    <div class="card" style=" margin-left:37%;width: 600;">
+        <div class="card-body">
+            <h5 class="card-title"><a href="/post/{{post.id}}/">{{post.title}}</a></h5>
+            <p class="card-text"><a href="/profile/{{post.posted_by.id}}/">@{{post.posted_by}}</a></p>
+            <p class="card-text">{{post.body}}</p>
+            <p class="card-text">{{post.time_stamp}}</p>
+        </div>
+        {% if post.image %}
+            <img src="{{ post.image.url}}" alt="" style="margin:20px; height: 450;">
+            <p></p>
+        {% else %}
+            <div></div>
+        {% endif %}
+        <div class="card-body">
+            <button type="button" class="btn btn-primary" onclick="location.href='/comment/{{post.id}}/'">Comment</button>
+          </div>
+    </div>
+    <br>
+  
+  {% endfor %}
+
+{% endif %}
+
+{% endblock %}

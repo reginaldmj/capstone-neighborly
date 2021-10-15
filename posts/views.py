@@ -76,4 +76,6 @@ def edit_post_view(request, id):
 def delete_post_view(request, id):
     post_to_delete = Post.objects.get(id=id)
     post_to_delete.delete()
+    request.user.posts -= 1
+    request.user.save()
     return HttpResponseRedirect(reverse("index"))

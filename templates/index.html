@@ -11,20 +11,33 @@
 <div class="homepage">
 <h1>Recent Posts for Your Area - {{current_user.location.city}}, {{current_user.location.state}}</h1>
 
+{% if posts %}
 {% for post in posts %}
 
-<div class="container-sm">
-  <p><h2 class="title"><a href="/post/{{post.id}}/">{{post.title}}</a> -- <a href="/user/{{user.id}}/">@{{post.posted_by}}</a></h2></p>
-  <h3>{{post.body}}</h3>
-  <h3>{{post.time_stamp}}</h3>
+<div class="card" style=" margin-left:37%;width: 600;">
+  <div class="card-body">
+      <h5 class="card-title"><a href="/post/{{post.id}}/">{{post.title}}</a></h5>
+      <p class="card-text"><a href="/profile/{{post.posted_by.id}}/">@{{post.posted_by}}</a></p>
+      <p class="card-text">{{post.body}}</p>
+      <p class="card-text">{{post.time_stamp}}</p>
+  </div>
   {% if post.image %}
-  <img src="{{ post.image.url}}" alt="">
-  <p></p>
+      <img src="{{ post.image.url}}" alt="" style="margin:20px; height: 450;">
+      <p></p>
   {% else %}
-  <div></div>
+      <div></div>
   {% endif %}
-  <button type="button" class="btn btn-primary" onclick="location.href='/comment/{{post.id}}/'">Comment</button>
+  <div class="card-body">
+    <button type="button" class="btn btn-primary" onclick="location.href='/comment/{{post.id}}/'">Comment</button>
+  </div>
+</div>
+<br>
 
 {% endfor %}
+{% else %}
+<br>
+<br>
+<h4>No Posts in Your area yet! Click <a href="/addpost/">Here</a> to make the first Post for Your City!</h4>
+{% endif %}
 
 {% endblock %}

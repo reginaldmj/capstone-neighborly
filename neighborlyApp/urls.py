@@ -27,7 +27,6 @@ from django.views.static import serve
 from django.conf.urls import url
 
 
-
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.homepage_view, name='index'),
@@ -38,12 +37,13 @@ urlpatterns = [
     path('addpost/', post_views.add_post_view, name="addpost"),
     path("post/<int:id>/", post_views.Post_Detail_View.as_view(), name="post"),
     path('post/<int:id>/edit/', post_views.edit_post_view, name="editpost"),
-    path('notifications/<int:id>/',notif_views.notification_view, name="notifications"),
-    path('comment/<int:id>/',com_views.com_detailview, name='comments'),
+    path('notifications/<int:id>/',
+         notif_views.notification_view, name="notifications"),
+    path('comment/<int:id>/', com_views.com_detailview, name='comments'),
     path('post/<int:id>/delete/', post_views.delete_post_view, name='delete'),
     path('notifications/<int:id>/',
          notif_views.notification_view, name="notifications"),
-    path('profile/<int:id>/', views.Profile, name="profile"),
+    path('profile/<int:id>/', views.user_profile_view, name="profile"),
 ]
 
 handler404 = 'neighborlyUsers.views.error_404_view'
