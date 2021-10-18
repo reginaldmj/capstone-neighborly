@@ -87,22 +87,19 @@ def user_profile_view(request, id):
     current_user = NeighborlyUser.objects.get(id=id)
     posts = Post.objects.filter(posted_by=current_user).order_by('-time_stamp')
     total_posts = current_user.posts
-    profile_pic = current_user.profile_pic
-    # print(profile_pic)
-    return render(request, html, {'posts': posts, 'total_posts': total_posts, 'profile_pic': profile_pic, "current_user": current_user})
+    return render(request, html, {'posts': posts, 'total_posts': total_posts, "current_user": current_user})
 
 
 def edit_user_view(request, id):
     current_user = NeighborlyUser.objects.get(id=id)
     if request.method == "POST":
-        form = NeighborlyUserChangeForm(request.POST)
+        form = NeighborlyUserChangeForm(request.POST, request.FILES)
         if form.is_valid():
             data = form.cleaned_data
             current_user.display_name = data['display_name']
             current_user.email = data['email']
             current_user.age = data['age']
             current_user.profile_pic = data['profile_pic']
-            print(current_user.profile_pic)
             current_user.save()
             return HttpResponseRedirect(reverse('profile', args=(id,)))
     form = NeighborlyUserChangeForm(initial={

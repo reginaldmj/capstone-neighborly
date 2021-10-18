@@ -59,7 +59,7 @@ def edit_post_view(request, id):
     post = Post.objects.get(id=id)
     current_user = request.user
     if request.method == "POST":
-        form = PostForm(request.POST)
+        form = PostForm(request.POST, request.FILES)
         if form.is_valid():
             data = form.cleaned_data
             if data['image']:

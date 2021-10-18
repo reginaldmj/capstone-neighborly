@@ -11,8 +11,7 @@
 </head>
 
 <header id="header">
-  <div class="༼•̫͡•༽" style="background-image: url('/static/images/city.jpg');">Neighborly</div>
-  <!-- <div class="༼•̫͡•༽">Neighborly</div> -->
+  <div class="༼•̫͡•༽" style="background-image: url('/static/images/city.jpg'); letter-spacing: 5; font-weight: bolder; font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;">Neighborly</div>
 </header>
 <br />
 {% if user.is_authenticated %}
@@ -50,7 +49,7 @@
 </div>
 {% endif %}
 <br />
-<body>
+<body style="background-color: lightblue;">
   {% block content%}
   {% endblock %}
 </body>

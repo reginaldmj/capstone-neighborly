@@ -4,7 +4,15 @@
 {% if request.user.is_authenticated %}
 <div class="card" style=" margin-left:37%;width: 600;">
     <div class="card-body">
-        <h1>{{ current_user.username}}'s Profile</h1>
+        <div>
+            <h1>{{ current_user.username}}'s Profile</h1>
+            {% if current_user.profile_pic %}
+            <img src="{{ user.profile_pic.url}}" alt="" style="margin:20px; height: 185;">
+            <p></p>
+            {% else %}
+            <div></div>
+            {% endif %}
+        </div>
         <h3>Personal Info:</h3>
         <h4>Username: {{ current_user.username}}</h4>
         <h4>Email: {{ current_user.email }}</h4>
@@ -18,39 +26,41 @@
     </div>
 </div>
 
-<!-- {% if current_user.profile_pic %} -->
-<img src="{{ user.profile_pic.url}}" alt="" style="margin:20px; height: 450;">
-<p></p>
-<!-- {% else %} -->
-<div></div>
-<!-- {% endif %} -->
-
+<br>
+<h2 style=" margin-left:46%;">{{current_user.username}}'s Posts:</h2>
 {% for post in posts %}
 
-    <div class="card" style=" margin-left:37%;width: 600;">
-        <div class="card-body">
-            <h5 class="card-title"><a href="/post/{{post.id}}/">{{post.title}}</a></h5>
-            <p class="card-text"><a href="/profile/{{post.posted_by.id}}/">@{{post.posted_by}}</a></p>
-            <p class="card-text">{{post.body}}</p>
-            <p class="card-text">{{post.time_stamp}}</p>
-        </div>
+<div class="card" style=" margin-left:37%;width: 600;">
+    <div class="card-body" style="padding-top: 0px;">
+        <h4 class="card-title"><a href="/post/{{post.id}}/">{{post.title}}</a></h4>
+        <h5 class="card-text">
+        {% if current_user.profile_pic %}
+        <img src="{{ post.posted_by.profile_pic.url}}" alt="" style=" margin-right: 5px; height: 40;">
+        {% else %}
+        <div></div>
+        {% endif %}
+            <a href="/profile/{{post.posted_by.id}}/">@{{post.posted_by}}</a></h5>
+        <br>
+        <p class="card-text">{{post.time_stamp}}</p>
+        <p class="card-text">{{post.body}}</p>
         {% if post.image %}
-            <img src="{{ post.image.url}}" alt="" style="margin:20px; height: 450;">
-            <p></p>
+            <img src="{{ post.image.url}}" alt="" style="height: 300; width: 300;">
         {% else %}
             <div></div>
         {% endif %}
-        <div class="card-body">
-            <button type="button" class="btn btn-primary" onclick="location.href='/comment/{{post.id}}/'">Comment</button>
-          </div>
-          <div class="card-body">
-            <h4>{{ post.comment_count }} Comments 
-              {% if post.comment_count > 0 %}
-              <a href="/post/{{post.id}}/">See All</a></h4>
-              {% endif %}
-          </div>
+    <div class="card-body" style="padding-bottom: 0px;">
+      <button type="button" class="btn btn-primary" onclick="location.href='/comment/{{post.id}}/'">Comment</button>
     </div>
-    <br>
+  </div>
+  
+    <div class="card-body" style="padding-top: 0px;">
+      <h4>{{ post.comment_count }} Comments 
+        {% if post.comment_count > 0 %}
+        <a href="/post/{{post.id}}/">See All</a></h4>
+        {% endif %}
+    </div>
+  </div>
+  <br>
   
   {% endfor %}
 

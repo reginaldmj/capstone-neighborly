@@ -2,30 +2,30 @@
 {% block content %}
 
 <div class="card" style=" margin-left:37%;width: 600;">
-    <div class="card-body">
-        <h5 class="card-title"><a href="/post/{{post.id}}/">{{post.title}}</a></h5>
-        <p class="card-text"><a href="/profile/{{post.posted_by.id}}/">@{{post.posted_by}}</a></p>
-        <p class="card-text">{{post.body}}</p>
+    <div class="card-body" style="padding-top: 0px;">
+        <h4 class="card-title"><a href="/post/{{post.id}}/">{{post.title}}</a></h4>
+        <h5 class="card-text"><img src="{{ post.posted_by.profile_pic.url}}" alt="" style=" margin-right: 5px; height: 40;"><a href="/profile/{{post.posted_by.id}}/">@{{post.posted_by}}</a></h5>
+        <br>
         <p class="card-text">{{post.time_stamp}}</p>
+        <p class="card-text">{{post.body}}</p>
+        {% if post.image %}
+            <img src="{{ post.image.url}}" alt="" style="height: 300; width: 300;">
+        {% else %}
+            <div></div>
+        {% endif %}
     </div>
-    {% if post.image %}
-        <img src="{{ post.image.url}}" alt="" style="margin:20px; height: 450;">
-        <p></p>
-    {% else %}
-        <div></div>
-    {% endif %}
 
     {% if current_user == post.posted_by or is_admin %}
-    <div class="card-body">
+    <div class="card-body" style="padding-bottom: 0px;">
         <button type="button" class="btn btn-primary" onclick="location.href='/post/{{post.id}}/edit/'">Edit Post</button>
         <button type="button" class="btn btn-danger" onclick="location.href='/post/{{post.id}}/delete/'">Delete Post</button>
     </div>
     {% endif %}
-    <div class="card-body">
+    <div class="card-body" style="padding-bottom: 0px;">
     <button type="button" class="btn btn-primary" onclick="location.href='/comment/{{post.id}}/'">Comment</button>
   </div>
 
-  <div class="card-body">
+  <div class="card-body" style="padding-top: 0px;">
     <h4>{{ post.comment_count }} comments</h4>
 
     {% for comment in comments %}
