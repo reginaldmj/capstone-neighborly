@@ -1,16 +1,9 @@
 {% extends "header.html" %}
 {% block content %}
 
-{% if request.user.is_authenticated %}
-<p>
-  Welcome, 
-  <a href="/profile/{{request.user.id}}/">{{ request.user.display_name }}</a>
-</p>
-{% endif %} 
-
 <div class="homepage">
-<h1>Recent Posts for Your Area - {{current_user.location.city}}, {{current_user.location.state}}</h1>
-
+<h1 style=" margin-left:35%;">Recent Posts for Your Area - {{current_user.location.city}}, {{current_user.location.state}}</h1>
+<br>
 {% if posts %}
 {% for post in posts %}
 
@@ -29,6 +22,13 @@
   {% endif %}
   <div class="card-body">
     <button type="button" class="btn btn-primary" onclick="location.href='/comment/{{post.id}}/'">Comment</button>
+  </div>
+
+  <div class="card-body">
+    <h4>{{ post.comment_count }} Comments 
+      {% if post.comment_count > 0 %}
+      <a href="/post/{{post.id}}/">See All</a></h4>
+      {% endif %}
   </div>
 </div>
 <br>

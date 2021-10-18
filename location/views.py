@@ -52,4 +52,4 @@ def location_search(request):
             lat = results.lat
             return render(request, 'map.html', {'results': results, 'current_user': current_user, 'lat': lat})
     form = NeighorhoodForm()
-    return render(request, 'generic_form.html', {'form': form})
+    return render(request, 'zipcode.html', {'form': form})

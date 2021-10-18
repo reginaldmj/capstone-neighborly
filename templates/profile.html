@@ -2,20 +2,28 @@
 {% block content %}
 
 {% if request.user.is_authenticated %}
-<h4>{{ current_user.username}}'s Profile</h4>
+<div class="card" style=" margin-left:37%;width: 600;">
+    <div class="card-body">
+        <h1>{{ current_user.username}}'s Profile</h1>
+        <h3>Personal Info:</h3>
+        <h4>Username: {{ current_user.username}}</h4>
+        <h4>Email: {{ current_user.email }}</h4>
+        <h4>Age: {{ current_user.age}}</h4>
+        <h4>Location: {{ current_user.location.city}}, {{ current_user.location.state}}</h4>
+        <h4>Posts: {{ current_user.posts}}</h4>
+        {% if current_user == user %}
+        <button type="button" class="btn btn-primary" onclick="location.href='/location/'">Change Location</button>
+        <button type="button" class="btn btn-primary" onclick="location.href='/profile/{{user.id}}/update/'">Update Profile</button>
+        {% endif %}
+    </div>
+</div>
 
-{% if current_user.profile_pic %}
-<img src="{{ current_user.profile_pic.url}}" alt="">
-{% else %}
+<!-- {% if current_user.profile_pic %} -->
+<img src="{{ user.profile_pic.url}}" alt="" style="margin:20px; height: 450;">
+<p></p>
+<!-- {% else %} -->
 <div></div>
-{% endif %}
-
-{% if current_user == user %}
-<button type="button" class="btn btn-primary" onclick="location.href='/location/'">Change Location</button>
-<button type="button" class="btn btn-primary" onclick="location.href='/profile/{{user.id}}/update/'">Update Profile</button>
-{% endif %}
-
-Posts: {{ total_posts }}</p>
+<!-- {% endif %} -->
 
 {% for post in posts %}
 
@@ -34,6 +42,12 @@ Posts: {{ total_posts }}</p>
         {% endif %}
         <div class="card-body">
             <button type="button" class="btn btn-primary" onclick="location.href='/comment/{{post.id}}/'">Comment</button>
+          </div>
+          <div class="card-body">
+            <h4>{{ post.comment_count }} Comments 
+              {% if post.comment_count > 0 %}
+              <a href="/post/{{post.id}}/">See All</a></h4>
+              {% endif %}
           </div>
     </div>
     <br>

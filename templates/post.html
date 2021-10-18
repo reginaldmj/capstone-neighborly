@@ -24,6 +24,24 @@
     <div class="card-body">
     <button type="button" class="btn btn-primary" onclick="location.href='/comment/{{post.id}}/'">Comment</button>
   </div>
+
+  <div class="card-body">
+    <h4>{{ post.comment_count }} comments</h4>
+
+    {% for comment in comments %}
+    <div class="comments" style="padding: 10px;">
+      <p class="font-weight-bold">
+        <div class="card-text"><a href="/profile/{{post.posted_by.id}}/">@{{post.posted_by}}</a>
+            <span class=" text-muted font-weight-normal">
+                {{ comment.created_on }}
+              </span>
+        </div>
+      </p>
+      {{ comment.body | linebreaks }}
+    </div>
+    {% endfor %}
+  </div>
+  
 </div>
 <br>
 

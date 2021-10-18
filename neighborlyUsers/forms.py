@@ -25,4 +25,4 @@ class NeighborlyUserCreationForm(UserCreationForm):
 class NeighborlyUserChangeForm(forms.ModelForm):
     class Meta:
         model = NeighborlyUser
-        fields = ['display_name', 'email', 'age', ]
+        fields = ['display_name', 'email', 'age', 'profile_pic']

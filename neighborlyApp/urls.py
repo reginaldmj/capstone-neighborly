@@ -39,7 +39,7 @@ urlpatterns = [
     path('post/<int:id>/edit/', post_views.edit_post_view, name="editpost"),
     path('notifications/<int:id>/',
          notif_views.notification_view, name="notifications"),
-    path('comment/<int:id>/', com_views.com_detailview, name='comments'),
+    path('comment/<int:id>/', com_views.create_comment_view, name='comments'),
     path('post/<int:id>/delete/', post_views.delete_post_view, name='delete'),
     path('notifications/<int:id>/',
          notif_views.notification_view, name="notifications"),

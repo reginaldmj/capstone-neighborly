@@ -11,6 +11,7 @@ class Post(models.Model):
     posted_by = models.ForeignKey(
         NeighborlyUser, on_delete=models.CASCADE, related_name='user_posted')
     city = models.CharField(max_length=50, default="", blank=True, null=True)
+    comment_count = models.IntegerField(default=0, null=True, blank=True)
 
     def __str__(self):
         return self.title

@@ -1,0 +1,12 @@
+{% extends "header.html" %}
+{% block content %}
+
+<h4>Please Enter Your Current Zipcode To Be Added Into The Neighborhood Finder:</h4>
+
+<form method="post" enctype="multipart/form-data" class="form">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <input type="submit" value="Submit" class="btn btn-primary" />
+</form>
+
+{% endblock %}

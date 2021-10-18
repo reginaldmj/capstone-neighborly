@@ -6,6 +6,7 @@ from notifications.models import Notification
 from neighborlyUsers.models import NeighborlyUser
 import re
 from django.views.generic import View
+from comments.models import Comment
 
 
 class Post_Detail_View(View):
@@ -13,11 +14,12 @@ class Post_Detail_View(View):
     def get(self, request, id):
         current_user = request.user
         posts = Post.objects.all()
+        post = Post.objects.get(id=id)
+        comments = Comment.objects.filter(post=post).order_by("-id")
         template_name = "post.html"
         is_admin = request.user.is_superuser
-        post = Post.objects.get(id=id)
         context = {"post": post, "current_user": current_user,
-                   "is_admin": is_admin, "posts": posts}
+                   "is_admin": is_admin, "posts": posts, 'comments': comments}
         return render(request, template_name, context)
 
 
@@ -60,9 +62,11 @@ def edit_post_view(request, id):
         form = PostForm(request.POST)
         if form.is_valid():
             data = form.cleaned_data
+            if data['image']:
+                post.image = None
+                post.image = data['image']
             post.title = data['title']
             post.body = data['body']
-            post.image = data['image']
             post.save()
             return HttpResponseRedirect(reverse('post', args=(id,)))
     form = PostForm(initial={
