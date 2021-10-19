@@ -5,7 +5,7 @@
 <div class="card" style=" margin-left:37%;width: 600;">
     <div class="card-body">
         <div>
-            <h1>{{ current_user.username}}'s Profile</h1>
+            <h1>{{ current_user.display_name}}'s Profile</h1>
             {% if current_user.profile_pic %}
             <img src="{{ current_user.profile_pic.url}}" alt="" style="margin:20px; height: 185;">
             <p></p>
@@ -48,6 +48,12 @@
         {% else %}
             <div></div>
         {% endif %}
+        {% if user == post.posted_by or is_admin %}
+    <div class="card-body" style="padding-bottom: 0px;">
+        <button type="button" class="btn btn-primary" onclick="location.href='/post/{{post.id}}/edit/'">Edit Post</button>
+        <button type="button" class="btn btn-danger" onclick="location.href='/post/{{post.id}}/delete/'">Delete Post</button>
+    </div>
+    {% endif %}
     <div class="card-body" style="padding-bottom: 0px;">
       <button type="button" class="btn btn-primary" onclick="location.href='/comment/{{post.id}}/'">Comment</button>
     </div>
