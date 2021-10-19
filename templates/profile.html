@@ -7,7 +7,7 @@
         <div>
             <h1>{{ current_user.username}}'s Profile</h1>
             {% if current_user.profile_pic %}
-            <img src="{{ user.profile_pic.url}}" alt="" style="margin:20px; height: 185;">
+            <img src="{{ current_user.profile_pic.url}}" alt="" style="margin:20px; height: 185;">
             <p></p>
             {% else %}
             <div></div>
@@ -34,11 +34,11 @@
     <div class="card-body" style="padding-top: 0px;">
         <h4 class="card-title"><a href="/post/{{post.id}}/">{{post.title}}</a></h4>
         <h5 class="card-text">
-        {% if current_user.profile_pic %}
-        <img src="{{ post.posted_by.profile_pic.url}}" alt="" style=" margin-right: 5px; height: 40;">
-        {% else %}
-        <div></div>
-        {% endif %}
+          {% if post.posted_by.profile_pic %}
+          <img src="{{ post.posted_by.profile_pic.url}}" alt="" style=" margin-right: 5px; height: 40;">
+          {% else %}
+          <div></div>
+          {% endif %}
             <a href="/profile/{{post.posted_by.id}}/">@{{post.posted_by}}</a></h5>
         <br>
         <p class="card-text">{{post.time_stamp}}</p>
